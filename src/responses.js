@@ -4,6 +4,7 @@ const index = fs.readFileSync(`${__dirname}/../client/client.html`);
 const style = fs.readFileSync(`${__dirname}/../client/style.css`);
 const cCode = fs.readFileSync(`${__dirname}/../client/client.js`);
 const data = JSON.parse(fs.readFileSync(`${__dirname}/../src/pokedex.json`));
+const strengths = JSON.parse(fs.readFileSync(`${__dirname}/../src/strengths.json`));
 
 const sendResponseClient = (content, response, type) => {
     response.writeHead(200, { "Content-Type": type });
@@ -37,13 +38,31 @@ const getData = (req, res) => {
         t = req.query.type;
         selections = selections.filter((pokemon) => pokemon.type.includes(t));
     }
-    // if (req.query.effective) {
-    //     e = req.query.effective;
-    //     selections = selections.filter((pokemon) => pokemon.ef.includes(n));
-    // }
-    console.log(selections);
+    if (req.query.effective) {
+        e = req.query.effective;
+        const strong = strengths.filter(obj => obj.type === e); 
+
+        selections = selections.filter((pokemon) => {
+            strong.forEach(element => {
+                if (pokemon.weaknesses.includes(element)) {
+                    return true;
+                }
+                return false;
+            });
+
+        });
+    }
+    //console.log(selections);
     sendResponseData(200, selections, res, "array");
 }   
+
+const editData = (req, res) => {
+
+}
+
+const addData = (req, res) => {
+
+}
 
 const getIndex = (req, res) => {
     sendResponseClient(index, res, 'text/html');
@@ -66,5 +85,7 @@ module.exports = {
     getStyle,
     getCode,
     getData,
+    addData,
+    editData,
     notFound
 }

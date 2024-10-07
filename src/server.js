@@ -13,6 +13,12 @@ const urlStruct = {
 	'/search': responses.getData
 };  
 
+const handlePost = (req, res, url) => {
+	if (parsedUrl.pathname === "/addPokemon") {
+		responses.addData(req, res);
+	}
+}
+
 const onRequest = (request, response) => {
 	console.log(request.url);
 
@@ -20,11 +26,14 @@ const onRequest = (request, response) => {
   	const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);
 	request.query = Object.fromEntries(parsedUrl.searchParams);
 
+	if (request.method === "POST") {
+		handlePost(request, response, parsedUrl);
+	}
 	if (urlStruct[parsedUrl.pathname]) {
 		urlStruct[parsedUrl.pathname](request, response);
-	  } else {
-		responses.notFound(request, response);
-	  }
+	} else {
+	responses.notFound(request, response);
+	}
 }
 
 http.createServer(onRequest).listen(port, () => {
