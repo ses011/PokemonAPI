@@ -33,15 +33,15 @@ const getData = (req, res) => {
         console.log(`Name: ${n}`);
         selections = selections.filter((pokemon) => pokemon.name.toLowerCase().includes(n));
     }
-    // if (req.query.type) {
-    //     t = req.query.type;
-    //     selections = selections.filter((pokemon) => pokemon.name.toLowerCase().includes(n));
-    // }
+    if (req.query.type) {
+        t = req.query.type;
+        selections = selections.filter((pokemon) => pokemon.type.includes(t));
+    }
     // if (req.query.effective) {
     //     e = req.query.effective;
-    //     selections = selections.filter((pokemon) => pokemon.name.toLowerCase().includes(n));
+    //     selections = selections.filter((pokemon) => pokemon.ef.includes(n));
     // }
-
+    console.log(selections);
     sendResponseData(200, selections, res, "array");
 }   
 
