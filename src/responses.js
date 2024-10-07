@@ -6,22 +6,22 @@ const cCode = fs.readFileSync(`${__dirname}/../client/client.js`);
 const data = JSON.parse(fs.readFileSync(`${__dirname}/../src/pokedex.json`));
 const strengths = JSON.parse(fs.readFileSync(`${__dirname}/../src/strengths.json`));
 
-const sendResponseClient = (content, response, type) => {
-    response.writeHead(200, { "Content-Type": type });
-    response.write(content);
-    response.end();
-}
 
 const sendResponseData = (code, content, response, type) => {
     content = JSON.stringify(content);
 
     response.writeHead(code, { 
-        "Content-Type": "application/json",
+        "Content-Type": type,
         "Content-Length": Buffer.byteLength(content, "utf8")
     });
 
     response.write(content);
     response.end();
+}
+
+const sendHead = (code, res) => {
+    res.writeHead(code);
+    res.end();
 }
 
 const getData = (req, res) => {
@@ -52,32 +52,53 @@ const getData = (req, res) => {
 
         });
     }
-    //console.log(selections);
-    sendResponseData(200, selections, res, "array");
+
+    if (selections.length === 0) {
+        sendHead(204, res);
+    }
+
+    sendResponseData(200, selections, res, "application/json");
 }   
 
 const editData = (req, res) => {
+    let poke = data[req.body.id - 1];
 
+    poke.name = req.body.name;
+    poke.img = req.body.name;
+    poke.type = req.body.type;
+    poke.height = req.body.height;
+    poke.weight = req.body.weight;
+    poke.weaknesses = req.body.weaknesses;
+
+    data[req.body.id - 1] = poke;
+    sendResponseData(202, "Pokemon updated", res, "text/html")
 }
 
 const addData = (req, res) => {
+    let newPoke = req.body;
 
+    newPoke.id = data[data.length - 1].id + 1;
+    newPoke.num = newPoke.id.toString();
+    
+    data.push(newPoke);
+
+    sendResponseData(201, "Pokemon added", res, "text/html")
 }
 
 const getIndex = (req, res) => {
-    sendResponseClient(index, res, 'text/html');
+    sendResponseData(200, index, res, 'text/html');
 }
 
 const getStyle = (req, res) => {
-    sendResponseClient(style, res, 'text/css');
+    sendResponseData(200, style, res, 'text/css');
 }
 
 const getCode = (req, res) => {
-    sendResponseClient(cCode, res, 'application/javascript');
+    sendResponseData(200, cCode, res, 'application/javascript');
 }
 
 const notFound = (req, res) => {
-    sendResponseData(400, "Invalid request", res, "");
+    sendHead(400, res);
 }
 
 module.exports = {

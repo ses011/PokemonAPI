@@ -13,9 +13,33 @@ const urlStruct = {
 	'/search': responses.getData
 };  
 
+const parseBody = (req, res, handler) => {
+	const body = [];
+
+	req.on('error', err => {
+		console.dir(err);
+		res.statusCode = 400;
+		res.end();
+	});
+
+	req.on("data", chunk => {
+		body.push(chunk);
+	})
+
+	req.on("end", () => {
+		const bodyStr = Buffer.concat(body).toString();
+		req.body = query.parse(bodyStr);
+
+		handler(req, res);
+	})
+}
+
 const handlePost = (req, res, url) => {
-	if (parsedUrl.pathname === "/addPokemon") {
-		responses.addData(req, res);
+	if (url.pathname === "/addPokemon") {
+		parseBody(req, res, responses.addData);
+	}
+	else if (url.pathname === "/editPokemon") {
+		parseBody(req, res, responses.editData);
 	}
 }
 
