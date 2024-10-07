@@ -1,10 +1,11 @@
 
 const handleResponse = (response) => {
     const content = document.querySelector("#display");
-    
+    console.log(response);
+
     switch(response.status) {
         case 200: //Success
-          content.innerHTML = `<b>Success</b>`;
+          content.innerHTML = `<b>${JSON.stringify(response)}</b>`;
           break;
         case 400: //Bad Request
           content.innerHTML = `<b>Bad Request</b>`;
@@ -18,17 +19,36 @@ const handleResponse = (response) => {
     }
 }
 
-const sendFetch = async (data) => {
-    response = await fetch(data);
-    handleResponse(response);
+const sendFetch = async (url, options) => {
+    console.log(url);
+    const fetchPromise = fetch(url, options);
+    fetchPromise.then((response) => handleResponse(response));
 }
 
 const init = () => {
     const searchBTN = document.querySelector("#search");
+    const nameField = document.querySelector("#nameField");
+    const type = document.querySelector("#type");
+    const effective = document.querySelector("#effective");
 
+    let url = "";
+    const options = { };
 
     searchBTN.onclick = () => {
+      options.method = "GET";
+      url = "/search?"
 
+      if (nameField.value.trim() != "") {
+        url += `name=${nameField.value.trim()}&`;
+      }
+      if (type.value != "null") {
+        url += `type=${type.value}&`;
+      }
+      if (effective.value != "null") {
+        url += `effective=${effective.value}&`;
+      }
+
+      sendFetch(url, options);
     };
 }
 

@@ -10,6 +10,7 @@ const urlStruct = {
 	index: responses.getIndex,
 	'/style.css': responses.getStyle,
 	'/client.js': responses.getCode,
+	'/search': responses.getData
 };  
 
 const onRequest = (request, response) => {
