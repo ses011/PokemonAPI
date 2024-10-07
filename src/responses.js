@@ -4,6 +4,7 @@ const index = fs.readFileSync(`${__dirname}/../client/client.html`);
 const style = fs.readFileSync(`${__dirname}/../client/style.css`);
 const cCode = fs.readFileSync(`${__dirname}/../client/client.js`);
 const data = JSON.parse(fs.readFileSync(`${__dirname}/../src/pokedex.json`));
+const strong = JSON.parse(fs.readFileSync(`${__dirname}/../src/strengths.json`));
 
 const sendResponseData = (code, content, response, type) => {
     if (type === "application/json") {
@@ -40,7 +41,17 @@ const getData = (req, res) => {
     }
     if (req.query.effective) {
         e = req.query.effective;
-        selections = selections.filter((pokemon) => pokemon.weaknesses.includes(e));
+        console.log(e);
+        
+        selections = selections.filter((pokemon) => {
+            for (const elem of strong.e) {
+                if (pokemon.type.includes(elem)) {
+                    console.log(pokemon.type);
+                    return true;
+                }
+            }
+            return false;
+        });
 
     }
 
