@@ -60,6 +60,8 @@ const getData = (req, res) => {
     sendResponseData(200, selections, res, "application/json");
 }   
 
+// Assumes req.body is a json object similar to how a single pokemon object is stored
+// Will likely change this later to not update at all if a field is left empty
 const editData = (req, res) => {
     let poke = data[req.body.id - 1];
 
@@ -74,6 +76,7 @@ const editData = (req, res) => {
     sendResponseData(202, "Pokemon updated", res, "text/html")
 }
 
+// This causes data to be out of order, but should still work the same
 const addData = (req, res) => {
     let newPoke = req.body;
 
