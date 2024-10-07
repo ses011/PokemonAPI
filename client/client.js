@@ -7,6 +7,9 @@ const handleResponse = (response) => {
         case 200: //Success
           content.innerHTML = `<b>${JSON.stringify(response)}</b>`;
           break;
+        case 204:
+          content.innerHTML = `<b>No data fits those search parameters- try a less specific search<b/>`;
+          break;
         case 400: //Bad Request
           content.innerHTML = `<b>Bad Request</b>`;
           break;
@@ -31,6 +34,8 @@ const init = () => {
     const type = document.querySelector("#type");
     const effective = document.querySelector("#effective");
 
+    const addBTN = document.querySelector("#addPokemon");
+
     let url = "";
     const options = { };
 
@@ -50,6 +55,13 @@ const init = () => {
 
       sendFetch(url, options);
     };
+
+    addBTN.onclick = () => {
+      options.method = "POST";
+      url = addBTN.action;
+
+      // TODO
+    }
 }
 
 window.onload = init;  

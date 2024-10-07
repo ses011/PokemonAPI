@@ -56,29 +56,29 @@ const getData = (req, res) => {
 // Assumes req.body is a json object similar to how a single pokemon object is stored
 // Will likely change this later to not update at all if a field is left empty
 const editData = (req, res) => {
-    // let poke = data[req.body.id - 1];
+    let poke = data[req.body.id - 1];
 
-    // poke.name = req.body.name;
-    // poke.img = req.body.name;
-    // poke.type = req.body.type;
-    // poke.height = req.body.height;
-    // poke.weight = req.body.weight;
-    // poke.weaknesses = req.body.weaknesses;
+    poke.name = req.body.name;
+    poke.img = req.body.name;
+    poke.type = req.body.type;
+    poke.height = req.body.height;
+    poke.weight = req.body.weight;
+    poke.weaknesses = req.body.weaknesses;
 
-    // data[req.body.id - 1] = poke;
-    // sendResponseData(202, "Pokemon updated", res, "text/plain");
+    data[req.body.id - 1] = poke;
+    sendResponseData(202, "Pokemon updated", res, "text/plain");
 }
 
 // This causes data to be out of order, but should still work the same
 const addData = (req, res) => {
-    // let newPoke = req.body;
+    let newPoke = req.body;
 
-    // newPoke.id = data[data.length - 1].id + 1;
-    // newPoke.num = newPoke.id.toString();
+    newPoke.id = data[data.length - 1].id + 1;
+    newPoke.num = newPoke.id.toString();
     
-    // data.push(newPoke);
+    data.push(newPoke);
 
-    // sendResponseData(201, "Pokemon added", res, "text/plain");
+    sendResponseData(201, "Pokemon added", res, "text/plain");
 }
 
 const getIndex = (req, res) => {

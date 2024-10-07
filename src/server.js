@@ -13,35 +13,35 @@ const urlStruct = {
 	'/search': responses.getData
 };  
 
-// const parseBody = (req, res, handler) => {
-// 	const body = [];
+const parseBody = (req, res, handler) => {
+	const body = [];
 
-// 	req.on('error', err => {
-// 		console.dir(err);
-// 		res.statusCode = 400;
-// 		res.end();
-// 	});
+	req.on('error', err => {
+		console.dir(err);
+		res.statusCode = 400;
+		res.end();
+	});
 
-// 	req.on("data", chunk => {
-// 		body.push(chunk);
-// 	})
+	req.on("data", chunk => {
+		body.push(chunk);
+	})
 
-// 	req.on("end", () => {
-// 		const bodyStr = Buffer.concat(body).toString();
-// 		req.body = query.parse(bodyStr);
+	req.on("end", () => {
+		const bodyStr = Buffer.concat(body).toString();
+		req.body = query.parse(bodyStr);
 
-// 		handler(req, res);
-// 	})
-// }
+		handler(req, res);
+	})
+}
 
-// const handlePost = (req, res, url) => {
-// 	if (url.pathname === "/addPokemon") {
-// 		parseBody(req, res, responses.addData);
-// 	}
-// 	else if (url.pathname === "/editPokemon") {
-// 		parseBody(req, res, responses.editData);
-// 	}
-// }
+const handlePost = (req, res, url) => {
+	if (url.pathname === "/addPokemon") {
+		parseBody(req, res, responses.addData);
+	}
+	else if (url.pathname === "/editPokemon") {
+		parseBody(req, res, responses.editData);
+	}
+}
 
 const onRequest = (request, response) => {
 	console.log(request.url);
@@ -50,9 +50,9 @@ const onRequest = (request, response) => {
   	const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);
 	request.query = Object.fromEntries(parsedUrl.searchParams);
 
-	// if (request.method === "POST") {
-	// 	handlePost(request, response, parsedUrl);
-	// }
+	if (request.method === "POST") {
+		handlePost(request, response, parsedUrl);
+	}
 	if (urlStruct[parsedUrl.pathname]) {
 		urlStruct[parsedUrl.pathname](request, response);
 	} else {
