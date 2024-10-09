@@ -1,88 +1,86 @@
-[
-    {
-        "Bug": [
-            "Fire",
-            "Flying",
-            "Rock"
-        ],
-        "Dark": [
-            "Fighting",
-            "Fairy",
-            "Bug"
-        ],
-        "Dragon": [
-            "Dragon",
-            "Ice",
-            "Fairy"
-        ],
-        "Electric": [
-            "Ground"
-        ],
-        "Fairy": [
-            "Poison",
-            "Steel"
-        ],
-        "Fighting": [
-            "Flying",
-            "Psychic",
-            "Fairy"
-        ],
-        "Fire": [
-            "Water",
-            "Ground",
-            "Rock"
-        ],
-        "Flying": [
-            "Electric",
-            "Ice",
-            "Rock"
-        ],
-        "Ghost": [
-            "Ghost",
-            "Dark"
-        ],
-        "Grass": [
-            "Ice",
-            "Poison",
-            "Flying"
-        ],
-        "Ground": [
-            "Water",
-            "Grass",
-            "Ice"
-        ],
-        "Ice": [
-            "Fire",
-            "Fighting",
-            "Rock",
-            "Steel"
-        ],
-        "Normal": [
-            "Fighting"
-        ],
-        "Poison": [
-            "Ground",
-            "Psychic"
-        ],
-        "Psychic": [
-            "Bug",
-            "Ghost",
-            "Dark"
-        ],
-        "Rock": [
-            "Grass",
-            "Fighting",
-            "Ground",
-            "Steel"
-        ],
-        "Steel": [
-            "Fire",
-            "Ground",
-            "Fighting"
-        ],
-        "Water": [
-            "Electric",
-            "Grass"
-        ]
-    }
-]
+{
+    "Bug": [
+        "Fire",
+        "Flying",
+        "Rock"
+    ],
+    "Dark": [
+        "Fighting",
+        "Fairy",
+        "Bug"
+    ],
+    "Dragon": [
+        "Dragon",
+        "Ice",
+        "Fairy"
+    ],
+    "Electric": [
+        "Ground"
+    ],
+    "Fairy": [
+        "Poison",
+        "Steel"
+    ],
+    "Fighting": [
+        "Flying",
+        "Psychic",
+        "Fairy"
+    ],
+    "Fire": [
+        "Water",
+        "Ground",
+        "Rock"
+    ],
+    "Flying": [
+        "Electric",
+        "Ice",
+        "Rock"
+    ],
+    "Ghost": [
+        "Ghost",
+        "Dark"
+    ],
+    "Grass": [
+        "Ice",
+        "Poison",
+        "Flying"
+    ],
+    "Ground": [
+        "Water",
+        "Grass",
+        "Ice"
+    ],
+    "Ice": [
+        "Fire",
+        "Fighting",
+        "Rock",
+        "Steel"
+    ],
+    "Normal": [
+        "Fighting"
+    ],
+    "Poison": [
+        "Ground",
+        "Psychic"
+    ],
+    "Psychic": [
+        "Bug",
+        "Ghost",
+        "Dark"
+    ],
+    "Rock": [
+        "Grass",
+        "Fighting",
+        "Ground",
+        "Steel"
+    ],
+    "Steel": [
+        "Fire",
+        "Ground",
+        "Fighting"
+    ],
+    "Water": [
+        "Electric",
+        "Grass"
+    ]
+}
