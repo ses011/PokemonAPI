@@ -73,8 +73,114 @@
         <h2>Add Pokemon</h2>
         <form id="addPokemon" action="/addPokemon" >
             <label for="name">Name: </label>
-            <input id="nameField" type="text" name="name" />
-            <input value="Add Pokemon" />
+            <input id="addNameField" type="text" name="name" /><br>
+            <label for="addHeight">Height (m): </label>
+            <input id="addHeightField" type="text" name="height" /><br>
+            <label for="addWeight">Weight (kg): </label>
+            <input id="addWeightField" type="text" name="weight" /><br>
+            <label for="type1">Type: </label>
+            <select id="addType1" name="type1">
+                <option value="null">--</option>
+                <option value="Bug">Bug</option>
+                <option value="Dark">Dark</option>
+                <option value="Dragon">Dragon</option>
+                <option value="Electric">Electric</option>
+                <option value="Fairy">Fairy</option>
+                <option value="Fighting">Fighting</option>
+                <option value="Fire">Fire</option>
+                <option value="Flying">Flying</option>
+                <option value="Ghost">Ghost</option>
+                <option value="Grass">Grass</option>
+                <option value="Ground">Ground</option>
+                <option value="Ice">Ice</option>
+                <option value="Normal">Normal</option>
+                <option value="Poison">Poison</option>
+                <option value="Psychic">Psychic</option>
+                <option value="Rock">Rock</option>
+                <option value="Steel">Steel</option>
+                <option value="Water">Water</option>
+                <label for="type1">Type: </label>
+            </select><br>
+            <label for="type2">Type (optional): </label>
+            <select id="addType2" name="type2">
+                <option value="null">--</option>
+                <option value="Bug">Bug</option>
+                <option value="Dark">Dark</option>
+                <option value="Dragon">Dragon</option>
+                <option value="Electric">Electric</option>
+                <option value="Fairy">Fairy</option>
+                <option value="Fighting">Fighting</option>
+                <option value="Fire">Fire</option>
+                <option value="Flying">Flying</option>
+                <option value="Ghost">Ghost</option>
+                <option value="Grass">Grass</option>
+                <option value="Ground">Ground</option>
+                <option value="Ice">Ice</option>
+                <option value="Normal">Normal</option>
+                <option value="Poison">Poison</option>
+                <option value="Psychic">Psychic</option>
+                <option value="Rock">Rock</option>
+                <option value="Steel">Steel</option>
+                <option value="Water">Water</option>
+            </select><br>
+            <input id="addBTN" value="Add Pokemon" type="button"/>
+        </form>
+    </section>
+    <section>
+        <h2>Edit Pokemon</h2>
+        <form id="editPokemon" action="/editPokemon" >
+            <label for="name">Name: </label>
+            <input id="editNameField" type="text" name="name" /><br>
+            <label for="height">Height (m): </label>
+            <input id="editHeightField" type="number" min="0" max="20" name="height" /><br>
+            <label for="weight">Weight (kg): </label>
+            <input id="editWeightField" type="number" min="0" max="1000" name="weight" /><br>
+            <label for="type1">Type: </label>
+            <select id="editType1" name="type1">
+                <option value="null">--</option>
+                <option value="Bug">Bug</option>
+                <option value="Dark">Dark</option>
+                <option value="Dragon">Dragon</option>
+                <option value="Electric">Electric</option>
+                <option value="Fairy">Fairy</option>
+                <option value="Fighting">Fighting</option>
+                <option value="Fire">Fire</option>
+                <option value="Flying">Flying</option>
+                <option value="Ghost">Ghost</option>
+                <option value="Grass">Grass</option>
+                <option value="Ground">Ground</option>
+                <option value="Ice">Ice</option>
+                <option value="Normal">Normal</option>
+                <option value="Poison">Poison</option>
+                <option value="Psychic">Psychic</option>
+                <option value="Rock">Rock</option>
+                <option value="Steel">Steel</option>
+                <option value="Water">Water</option>
+                <label for="type1">Type: </label>
+            </select><br>
+            <label for="type2">Type (optional): </label>
+            <select id="editType2" name="type2">
+                <option value="null">--</option>
+                <option value="Bug">Bug</option>
+                <option value="Dark">Dark</option>
+                <option value="Dragon">Dragon</option>
+                <option value="Electric">Electric</option>
+                <option value="Fairy">Fairy</option>
+                <option value="Fighting">Fighting</option>
+                <option value="Fire">Fire</option>
+                <option value="Flying">Flying</option>
+                <option value="Ghost">Ghost</option>
+                <option value="Grass">Grass</option>
+                <option value="Ground">Ground</option>
+                <option value="Ice">Ice</option>
+                <option value="Normal">Normal</option>
+                <option value="Poison">Poison</option>
+                <option value="Psychic">Psychic</option>
+                <option value="Rock">Rock</option>
+                <option value="Steel">Steel</option>
+                <option value="Water">Water</option>
+            </select><br>
+            <input id="editBTN" value="Edit Pokemon" type="button"/>
         </form>
     </section>
     <section id="display">

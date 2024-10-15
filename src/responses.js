@@ -84,7 +84,8 @@ const addData = (req, res) => {
   newPoke.id = data[data.length - 1].id + 1;
   newPoke.num = newPoke.id.toString();
 
-  data.push(newPoke);
+  data.push(JSON.stringify(newPoke));
+  console.log(data);
 
   sendResponseData(201, 'Pokemon added', res, 'text/plain');
 };

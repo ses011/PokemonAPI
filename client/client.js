@@ -30,35 +30,65 @@ const sendFetch = async (url, options) => {
 
 const init = () => {
     const searchBTN = document.querySelector("#search");
-    const nameField = document.querySelector("#nameField");
-    const type = document.querySelector("#type");
-    const effective = document.querySelector("#effective");
-
     const addBTN = document.querySelector("#addPokemon");
+    const editBTN = document.querySelector("#editPokemon");
 
     let url = "";
     const options = { };
 
     searchBTN.onclick = () => {
+      const nameField = document.querySelector("#nameField").value.trim();
+      const type = document.querySelector("#type").value;
+      const effective = document.querySelector("#effective").value;
+
       options.method = "GET";
       url = "/search?"
 
-      if (nameField.value.trim() != "") {
-        url += `name=${nameField.value.trim()}&`;
+      if (nameField != "") {
+        url += `name=${nameField}&`;
       }
-      if (type.value != "null") {
-        url += `type=${type.value}&`;
+      if (type != "null") {
+        url += `type=${type}&`;
       }
-      if (effective.value != "null") {
-        url += `effective=${effective.value}&`;
+      if (effective != "null") {
+        url += `effective=${effective}&`;
       }
 
       sendFetch(url, options);
     };
 
     addBTN.onclick = () => {
+      const nameField = document.querySelector("#addNameField").value.trim();
+      const heightField = document.querySelector("#addHeightField").value;
+      const weightField = document.querySelector("#addWeightField").value;
+      const type1 = document.querySelector("#addType1").value;
+      const type2 = document.querySelector("#addType2").value;
+      
       options.method = "POST";
       url = addBTN.action;
+
+      if (nameField != "") {
+        url += `name=${nameField}&`;
+      }
+      if (heightField != "") {
+        url += `height=${heightField}&`;
+      }
+      if (weightField != "") {
+        url += `weight=${weightField}&`;
+      }
+      if (type1 != "null") {
+        url += `type1=${type1}&`;
+      }
+      if (type2 != "null") {
+        url += `type2=${type2}&`;
+      }
+
+      sendFetch(url, options);
+    }
+
+    editBTN.onclick = () => {
+      options.method = "POST";
+      url = editBTN.action;
 
       // TODO
     }

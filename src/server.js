@@ -1,4 +1,5 @@
 const http = require('http');
+const query = require('querystring');
 
 const responses = require('./responses.js');
 
@@ -11,6 +12,7 @@ const urlStruct = {
   '/style.css': responses.getStyle,
   '/client.js': responses.getCode,
   '/search': responses.getData,
+
 };
 
 const parseBody = (req, res, handler) => {
@@ -29,15 +31,15 @@ const parseBody = (req, res, handler) => {
   req.on('end', () => {
     const bodyStr = Buffer.concat(body).toString();
     req.body = query.parse(bodyStr);
-    // query ^ ???
     handler(req, res);
   });
 };
 
 const handlePost = (req, res, url) => {
-  if (url.pathname === '/addPokemon') {
+  if (url.pathname.includes('/addPokemon')) {
+    console.log("POST add poke");
     parseBody(req, res, responses.addData);
-  } else if (url.pathname === '/editPokemon') {
+  } else if (url.pathname.includes('/editPokemon')) {
     parseBody(req, res, responses.editData);
   }
 };
@@ -52,7 +54,7 @@ const onRequest = (request, response) => {
   if (request.method === 'POST') {
     handlePost(request, response, parsedUrl);
   }
-  if (urlStruct[parsedUrl.pathname]) {
+  else if (urlStruct[parsedUrl.pathname]) {
     urlStruct[parsedUrl.pathname](request, response);
   } else {
     responses.notFound(request, response);
