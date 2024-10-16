@@ -3,23 +3,31 @@ const handleResponse = (response) => {
     const content = document.querySelector("#display");
     console.log(response);
 
-    switch(response.status) {
-        case 200: //Success
-          content.innerHTML = `<b>${JSON.stringify(response)}</b>`;
-          break;
-        case 204:
-          content.innerHTML = `<b>No data fits those search parameters- try a less specific search<b/>`;
-          break;
-        case 400: //Bad Request
-          content.innerHTML = `<b>Bad Request</b>`;
-          break;
-        case 404: //Not Found
-          content.innerHTML = `<b>Not Found</b>`;
-          break;
-        default: //Anything Else
-          content.innerHTML = `<p>Status Code not Implemented By Client</p>`;
-          break;
-    }
+    response.text().then((resText) => {
+
+   
+      switch(response.status) {
+          case 200: //Success
+            const parsedRes = JSON.parse(resText);
+            content.innerHTML = ''
+            for (let poke of parsedRes) {
+              content.innerHTML += `<div class="pokeResponses"><h3>#${poke.id}- ${poke.name}</h3><br><img src="${poke.img}"</img></div>`;
+            }
+            break;
+          case 204:
+            content.innerHTML = `<b>No data fits those search parameters- try a less specific search<b/>`;
+            break;
+          case 400: //Bad Request
+            content.innerHTML = `<b>Bad Request</b>`;
+            break;
+          case 404: //Not Found
+            content.innerHTML = `<b>Not Found</b>`;
+            break;
+          default: //Anything Else
+            content.innerHTML = `<p>Status Code not Implemented By Client</p>`;
+            break;
+      } 
+  })
 }
 
 const sendFetch = async (url, options) => {
@@ -29,6 +37,7 @@ const sendFetch = async (url, options) => {
 }
 
 const init = () => {
+    const documentation = document.querySelector("#documentation");
     const searchBTN = document.querySelector("#search");
     const addBTN = document.querySelector("#addPokemon");
     const editBTN = document.querySelector("#editPokemon");
@@ -36,6 +45,12 @@ const init = () => {
     let url = "";
     const options = { };
 
+    documentation.onclick = () => {
+      url = "/documentation.html";
+      options.method = 'GET';
+
+      sendFetch(url, options);
+    }
     searchBTN.onclick = () => {
       const nameField = document.querySelector("#nameField").value.trim();
       const type = document.querySelector("#type").value;

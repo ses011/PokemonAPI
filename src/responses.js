@@ -1,6 +1,7 @@
 const fs = require('fs');
 
 const index = fs.readFileSync(`${__dirname}/../client/client.html`);
+const documentation = fs.readFileSync(`${__dirname}/../client/documentation.html`);
 const style = fs.readFileSync(`${__dirname}/../client/style.css`);
 const cCode = fs.readFileSync(`${__dirname}/../client/client.js`);
 const data = JSON.parse(fs.readFileSync(`${__dirname}/../src/pokedex.json`));
@@ -94,6 +95,9 @@ const getIndex = (req, res) => {
   sendResponseData(200, index, res, 'text/html');
 };
 
+const getDocumentation = (req, res) => {
+  sendResponseData(200, documentation, res, 'text/html');
+};
 const getStyle = (req, res) => {
   sendResponseData(200, style, res, 'text/css');
 };
@@ -108,6 +112,7 @@ const notFound = (req, res) => {
 
 module.exports = {
   getIndex,
+  getDocumentation,
   getStyle,
   getCode,
   getData,

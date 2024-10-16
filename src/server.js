@@ -12,7 +12,7 @@ const urlStruct = {
   '/style.css': responses.getStyle,
   '/client.js': responses.getCode,
   '/search': responses.getData,
-
+  '/documentation.html': responses.getDocumentation
 };
 
 const parseBody = (req, res, handler) => {
@@ -37,7 +37,7 @@ const parseBody = (req, res, handler) => {
 
 const handlePost = (req, res, url) => {
   if (url.pathname.includes('/addPokemon')) {
-    console.log("POST add poke");
+    console.log('POST add poke');
     parseBody(req, res, responses.addData);
   } else if (url.pathname.includes('/editPokemon')) {
     parseBody(req, res, responses.editData);
@@ -53,8 +53,7 @@ const onRequest = (request, response) => {
 
   if (request.method === 'POST') {
     handlePost(request, response, parsedUrl);
-  }
-  else if (urlStruct[parsedUrl.pathname]) {
+  } else if (urlStruct[parsedUrl.pathname]) {
     urlStruct[parsedUrl.pathname](request, response);
   } else {
     responses.notFound(request, response);

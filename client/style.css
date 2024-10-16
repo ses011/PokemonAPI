@@ -1,6 +1,6 @@
-body {
+/* body {
     text-align: center;
-}
+} */
 
 section {
     border: 2px black solid;
@@ -9,4 +9,9 @@ section {
 
 select {
     font-size: large;
+}
+
+.pokeResponses {
+    margin: 30px;
+    border: 2px black solid;
 }
