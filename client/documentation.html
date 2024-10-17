@@ -27,32 +27,44 @@
               },
             ]
           }]</code>
-        <h3>Examples</h3>
+        <h3>Example</h3>
         <p>Request: </p><code>/getAll</code>
         <p>Response: </p>
         <code>[ {
-            id: number,
-            num: string,
-            name: string,
-            img: string (url),
-            type: [string],
-            height: string,
-            weight: string,
-            weaknesses": [string],
-            next_evolution": [
-              {
-                num: string,
-                name: string
-              }
-              ]
-          }, ... ]</code>
+            "id": 1,
+            "num": "001",
+            "name": "Bulbasaur",
+            "img": "http://www.serebii.net/pokemongo/pokemon/001.png",
+            "type": [
+                "Grass",
+                "Poison"
+            ],
+            "height": "0.71 m",
+            "weight": "6.9 kg",
+            "weaknesses": [
+                "Fire",
+                "Ice",
+                "Flying",
+                "Psychic"
+            ],
+            "next_evolution": [
+                {
+                    "num": "002",
+                    "name": "Ivysaur"
+                },
+                {
+                    "num": "003",
+                    "name": "Venusaur"
+                }
+            ]
+        }, ... ]</code>
     </section>
     <section>
         <h2>Search by Name (GET/HEAD)</h2>
         <h3>Query Params</h3>
-        <h4></h4>
+        <h4>Name: String, pokemon name</h4>
         <h3>Returns</h3>
-        <h3>Examples</h3>
+        <h3>Example</h3>
         <p>Request: </p><code>/searchName?name=bulbasaur</code>
         <p>Response: </p>
         <code>[{
@@ -74,26 +86,153 @@
     <section>
         <h2>Search by Type (GET/HEAD)</h2>
         <h3>Query Params</h3>
+        <h4>Type: string, pokemon type</h4>
         <h3>Returns</h3>
-        <h3>Examples</h3>
+        [{
+            id: number,
+            num: string,
+            name: string,
+            img: string (url),
+            type: [string],
+            height: string,
+            weight: string,
+            weaknesses: [string],
+            next_evolution: [{
+                num: string,
+                name: string
+              },
+            ]
+          }, ... ]
+        <h3>Example</h3>
+        <p>Request: </p><code>/searchName?type=Fire</code>
+        <p>Response: </p>
+        <code>[{
+            "id": 4,
+            "num": "004",
+            "name": "Charmander",
+            "img": "http://www.serebii.net/pokemongo/pokemon/004.png",
+            "type": [
+                "Fire"
+            ],
+            "height": "0.61 m",
+            "weight": "8.5 kg",
+            "weaknesses": [
+                "Water",
+                "Ground",
+                "Rock"
+            ],
+            "next_evolution": [
+                {
+                    "num": "005",
+                    "name": "Charmeleon"
+                },
+                {
+                    "num": "006",
+                    "name": "Charizard"
+                }
+            ]
+        }, ... ]
+        </code>
     </section>
     <section>
-        <h2>Search by Strong Against</h2>
+        <h2>Search by Strong Against (GET/HEAD)</h2>
+        <p>Gets Pokemon who are effective against the type entered</p>
         <h3>Query Params</h3>
+        <h4>effective: a pokemon type</h4>
         <h3>Returns</h3>
-        <h3>Examples</h3>
+        [{
+            id: number,
+            num: string,
+            name: string,
+            img: string (url),
+            type: [string],
+            height: string,
+            weight: string,
+            weaknesses: [string],
+            next_evolution: [{
+                num: string,
+                name: string
+              },
+            ]
+          }, ... ]
+        <h3>Example</h3>
+        <p>Request: </p><code>/searchName?effective=Fire</code>
+        <p>Response: </p>
+        <code>[{
+            "id": 7,
+            "num": "007",
+            "name": "Squirtle",
+            "img": "http://www.serebii.net/pokemongo/pokemon/007.png",
+            "type": [
+                "Water"
+            ],
+            "height": "0.51 m",
+            "weight": "9.0 kg",
+            "weaknesses": [
+                "Electric",
+                "Grass"
+            ],
+            "next_evolution": [
+                {
+                    "num": "008",
+                    "name": "Wartortle"
+                },
+                {
+                    "num": "009",
+                    "name": "Blastoise"
+                }
+            ]
+        }, ... ]
+        </code>
     </section>
     <section>
         <h2>Add Pokemon</h2>
-        <h3>Query Params</h3>
-        <h3>Returns</h3>
+        <h3>Body Params</h3>
+        <p>
+            <code>Name</code> (optional)- New Pokemon's name.<br>
+            <code>Height</code> (optional)- New height<br>
+            <code>weight</code> (optional)- New weight<br>
+            <code>type1</code> (optional)- First new type<br>
+            <code>type2</code> (optional)- Second new type<br>
+        </p>
         <h3>Examples</h3>
+        <p>
+            Request <code>/addPokemon</code><br>
+            Body <code>{name="newPoke", weight="8", type1="Water", type2="Ice"}</code><br>
+            Result <code> {"id":152,"num":"152","name":"newPoke","type":["Water","Ice"]}</code>
+        </p>
     </section>
     <section>
         <h2>Edit pokemon</h2>
-        <h3>Query Params</h3>
-        <h3>Returns</h3>
-        <h3>Examples</h3>
+        <h3>Body Params</h3>
+        <p>
+            <code>ID</code> (optional)- ID of pokemon to edit<br>
+            <code>Name</code> (optional)- if ID exists, new name for pokemon of [ID]. If ID not entered, pokemon to edit.<br>
+            <code>Height</code> (optional)- New height<br>
+            <code>weight</code> (optional)- New weight<br>
+            <code>type1</code> (optional)- First new type<br>
+            <code>type2</code> (optional)- Second new type<br>
+        </p>
+        <h3>Examples</h3> 
+        <p>
+            Request <code>/editPokemon</code><br>
+            Body <code>{id=34, name="tehe", weight="24", type1=Fire}</code><br>
+            Result <code> {
+                "id": 34,
+                "num": "034",
+                "name": "tehe",
+                "img": "http://www.serebii.net/pokemongo/pokemon/034.png",
+                "type": [ "Fire"],
+                "height": "1.40 m",
+                "weight": "24",
+                "weaknesses": [
+                  "Water",
+                  "Ice",
+                  "Ground",
+                  "Psychic"
+                ]
+              }</code>
+        </p>
     </section>
 </body>
 </html>
