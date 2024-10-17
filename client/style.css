@@ -7,6 +7,11 @@ section {
     padding: 10px;    
 }
 
+code {
+    color: white;
+    background-color: black;
+}
+
 select {
     font-size: large;
 }

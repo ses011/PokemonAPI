@@ -11,7 +11,12 @@ const urlStruct = {
   index: responses.getIndex,
   '/style.css': responses.getStyle,
   '/client.js': responses.getCode,
-  '/search': responses.getData,
+  '/searchName': responses.searchName,
+  '/searchType': responses.searchType,
+  '/searchEffective': responses.searchEffective,
+  '/getAll': responses.getAll,
+  '/addPokemon': responses.addData,
+  '/editPokemon': responses.editData,
   '/documentation.html': responses.getDocumentation
 };
 
@@ -31,6 +36,7 @@ const parseBody = (req, res, handler) => {
   req.on('end', () => {
     const bodyStr = Buffer.concat(body).toString();
     req.body = query.parse(bodyStr);
+    console.log("body");
     handler(req, res);
   });
 };
@@ -45,7 +51,7 @@ const handlePost = (req, res, url) => {
 };
 
 const onRequest = (request, response) => {
-  console.log(request.url);
+  console.log(`url: ${request.url}`);
 
   const protocol = request.connection.encrypted ? 'https' : 'http';
   const parsedUrl = new URL(request.url, `${protocol}://${request.headers.host}`);

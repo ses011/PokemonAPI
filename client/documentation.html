@@ -9,10 +9,91 @@
 <body>
     <a href="./client.html" role="button"></a>
     <section>
+        <h2>Get all</h2>
+        <h3>Returns</h3>
+        <p>JSON array of Pokemon objects</p>
+        <code>[{
+            id: number,
+            num: string,
+            name: string,
+            img: string (url),
+            type: [string],
+            height": string,
+            weight": string",
+            weaknesses": [string],
+            next_evolution": [{
+                num: string,
+                name: string
+              },
+            ]
+          },]</code>
+        <h3>Examples</h3>
+        <p>Request: </p><code>/getAll</code>
+        <p>Response: </p>
+        <code>[ {
+            "id": 1,
+            "num": "001",
+            "name": "Bulbasaur",
+            "img": "http://www.serebii.net/pokemongo/pokemon/001.png",
+            "type": [
+              "Grass",
+              "Poison"
+            ],
+            "height": "0.71 m",
+            "weight": "6.9 kg",
+            "weaknesses": [
+              "Fire",
+              "Ice",
+              "Flying",
+              "Psychic"
+            ],
+            "next_evolution": [
+              {
+                "num": "002",
+                "name": "Ivysaur"
+              },
+              {
+                "num": "003",
+                "name": "Venusaur"
+              }
+            ]
+          }, ... ]</code>
+    </section>
+    <section>
         <h2>Search by Name</h2>
         <h3>Query Params</h3>
         <h3>Returns</h3>
         <h3>Examples</h3>
+        <p>Request: </p><code>/searchName?name=bulbasaur</code>
+        <p>Response: </p>
+        <code>[ {
+            "id": 1,
+            "num": "001",
+            "name": "Bulbasaur",
+            "img": "http://www.serebii.net/pokemongo/pokemon/001.png",
+            "type": [
+              "Grass",
+              "Poison"
+            ],
+            "height": "0.71 m",
+            "weight": "6.9 kg",
+            "weaknesses": [
+              "Fire",
+              "Ice",
+              "Flying",
+              "Psychic"
+            ],
+            "next_evolution": [
+              {
+                "num": "002",
+                "name": "Ivysaur"
+              },
+              {
+                "num": "003",
+                "name": "Venusaur"
+              }
+            ]
+          } ]</code>
     </section>
     <section>
         <h2>Search by Type</h2>
