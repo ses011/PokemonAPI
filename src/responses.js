@@ -134,7 +134,7 @@ const addData = (req, res) => {
 
   data.push(newPoke);
 
-  sendResponseData(201, 'Pokemon added', res, 'text/plain');
+  sendResponseData(req, res, 201, 'Pokemon added', 'text/plain');
 };
 
 const getIndex = (req, res) => {
