@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <a href="./client.html" role="button"></a>
     <section>
@@ -64,31 +66,35 @@
         <h3>Query Params</h3>
         <h4>Name: String, pokemon name</h4>
         <h3>Returns</h3>
+        <p>
+            [{
+                id: number,
+                num: string,
+                name: string,
+                img: string (url),
+                type: [string],
+                height: string,
+                weight: string,
+                weaknesses: [string],
+                next_evolution: [{
+                num: string,
+                name: string
+                },
+                ]
+                }, ... ]
+        </p>
         <h3>Example</h3>
         <p>Request: </p><code>/searchName?name=bulbasaur</code>
         <p>Response: </p>
-        <code>[{
-            id: number,
-            num: string,
-            name: string,
-            img: string (url),
-            type: [string],
-            height: string,
-            weight: string,
-            weaknesses: [string],
-            next_evolution: [{
-                num: string,
-                name: string
-              },
-            ]
-          }]</code>
+        <code>[ { "id": 1, "num": "001", "name": "Bulbasaur", "img": "http://www.serebii.net/pokemongo/pokemon/001.png", "type": [ "Grass", "Poison" ], "height": "0.71 m", "weight": "6.9 kg", "weaknesses": [ "Fire", "Ice", "Flying", "Psychic" ], "next_evolution": [ { "num": "002", "name": "Ivysaur" }, { "num": "003", "name": "Venusaur" } ] }]</code>
     </section>
     <section>
         <h2>Search by Type (GET/HEAD)</h2>
         <h3>Query Params</h3>
         <h4>Type: string, pokemon type</h4>
         <h3>Returns</h3>
-        [{
+        <p>
+            [{
             id: number,
             num: string,
             name: string,
@@ -98,11 +104,12 @@
             weight: string,
             weaknesses: [string],
             next_evolution: [{
-                num: string,
-                name: string
-              },
+            num: string,
+            name: string
+            },
             ]
-          }, ... ]
+            }, ... ]
+        </p>
         <h3>Example</h3>
         <p>Request: </p><code>/searchName?type=Fire</code>
         <p>Response: </p>
@@ -141,20 +148,20 @@
         <h4>effective: a pokemon type</h4>
         <h3>Returns</h3>
         [{
-            id: number,
-            num: string,
-            name: string,
-            img: string (url),
-            type: [string],
-            height: string,
-            weight: string,
-            weaknesses: [string],
-            next_evolution: [{
-                num: string,
-                name: string
-              },
-            ]
-          }, ... ]
+        id: number,
+        num: string,
+        name: string,
+        img: string (url),
+        type: [string],
+        height: string,
+        weight: string,
+        weaknesses: [string],
+        next_evolution: [{
+        num: string,
+        name: string
+        },
+        ]
+        }, ... ]
         <h3>Example</h3>
         <p>Request: </p><code>/searchName?effective=Fire</code>
         <p>Response: </p>
@@ -207,13 +214,14 @@
         <h3>Body Params</h3>
         <p>
             <code>ID</code> (optional)- ID of pokemon to edit<br>
-            <code>Name</code> (optional)- if ID exists, new name for pokemon of [ID]. If ID not entered, pokemon to edit.<br>
+            <code>Name</code> (optional)- if ID exists, new name for pokemon of [ID]. If ID not entered, pokemon to
+            edit.<br>
             <code>Height</code> (optional)- New height<br>
             <code>weight</code> (optional)- New weight<br>
             <code>type1</code> (optional)- First new type<br>
             <code>type2</code> (optional)- Second new type<br>
         </p>
-        <h3>Examples</h3> 
+        <h3>Examples</h3>
         <p>
             Request <code>/editPokemon</code><br>
             Body <code>{id=34, name="tehe", weight="24", type1=Fire}</code><br>
@@ -235,4 +243,5 @@
         </p>
     </section>
 </body>
+
 </html>

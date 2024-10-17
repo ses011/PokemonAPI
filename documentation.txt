@@ -1,14 +1,11 @@
+Data set: The given pokemon file, as well as a created json file with type weaknesses
 
+What went right: I got basic functionality working for all the request types. I spent way too long figuring out the weaknesses data but I finally got it working. 
 
+What went wrong: I think I did the inputs for POST requests slightly wrong, but it works and does what I want it to so I'm not going to fight it. Documentation was a pain, I'm not sure if it's fully up to standards but I think could get at least partial credit for it. There were multiple times where fixing or adding one thing broke something else when coding, which is never fun but always happens. I believe I fixed (most of) the issues however.
 
+Learned: A good refresher on HTML, and lots of little knowledge checks that helped me process what different things did. I don't have any specific off the top of my head, but there were a fair few moments where I went "ohhhhh, that's how that works".
 
+Above and beyond: Small amount of CSS, displaying images if a Pokemon has one, bonus JSON file with type weaknesses. The last one specifically is something I feel like I always need when playing whatever Pokemon game, I'm not good at remembering what types are good against a boss.
 
-
-
-
-
-
-
-
-
-
+Borrowed code: Used some from previous assignments and in class demos, which to my knowledge don't need referenced further.
