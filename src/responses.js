@@ -4,7 +4,7 @@ const index = fs.readFileSync(`${__dirname}/../client/client.html`);
 const documentation = fs.readFileSync(`${__dirname}/../client/documentation.html`);
 const style = fs.readFileSync(`${__dirname}/../client/style.css`);
 const cCode = fs.readFileSync(`${__dirname}/../client/client.js`);
-let data = JSON.parse(fs.readFileSync(`${__dirname}/../src/pokedex.json`));
+const data = JSON.parse(fs.readFileSync(`${__dirname}/../src/pokedex.json`));
 const weakTo = JSON.parse(fs.readFileSync(`${__dirname}/../src/weaknesses.json`));
 
 const sendResponseData = (code, val, res, type) => {
@@ -29,7 +29,7 @@ const sendHead = (code, res) => {
 
 const getData = (selections, res) => {
   if (selections.length === 0) {
-    sendResponseData(204, "No data fits those search parameters- try a less specific search", res, 'text/plain');
+    sendResponseData(204, 'No data fits those search parameters- try a less specific search', res, 'text/plain');
     return;
   }
 
@@ -37,67 +37,67 @@ const getData = (selections, res) => {
 };
 
 const searchName = (req, res) => {
-  let pokeName = req.query.name.toLowerCase();
-  let selections = data.filter((pokemon) => pokemon.name.toLowerCase().includes(pokeName));
+  const pokeName = req.query.name.toLowerCase();
+  const selections = data.filter((pokemon) => pokemon.name.toLowerCase().includes(pokeName));
 
   getData(selections, res);
-}
+};
 
 const searchType = (req, res) => {
-  let pokeType = req.query.type;
-  let selections = data.filter((pokemon) => pokemon.type.includes(pokeType));
+  const pokeType = req.query.type;
+  const selections = data.filter((pokemon) => pokemon.type.includes(pokeType));
 
   getData(selections, res);
-}
+};
 
 const searchEffective = (req, res) => {
-  let pokeWeak = req.query.effective;
+  const pokeWeak = req.query.effective;
 
-  let selections = data.filter((pokemon) => {
-    console.log()
-    for (const elem of weakTo[pokeWeak]) {
+  const selections = data.filter((pokemon) => {
+    let match = false;
+    weakTo[pokeWeak].forEach((elem) => {
       if (pokemon.type.includes(elem)) {
-        return true;
+        match = true;
       }
-    }
-    return false;
+    });
+
+    return match;
   });
 
   getData(selections, res);
-}
+};
 
 const getAll = (req, res) => {
-  getData(data, res);  
-}
+  getData(data, res);
+};
 
 const postData = (poke, body) => {
+  const newPoke = poke;
   if (body.height) {
-    poke.name = body.name;
+    newPoke.name = body.name;
   }
   if (body.weight) {
-    poke.name = body.name;
+    newPoke.name = body.name;
   }
 
   if (body.type1 && body.type2) {
-    poke.type = [body.type1, body.type2];
-  }
-  else if (body.type1) {
-    poke.type = [body.type1];
-  }
-  else if (body.type2) {
-    poke.type = [body.type2];
+    newPoke.type = [body.type1, body.type2];
+  } else if (body.type1) {
+    newPoke.type = [body.type1];
+  } else if (body.type2) {
+    newPoke.type = [body.type2];
   }
 
-  console.log(poke);
-  return poke;
-}
+  return newPoke;
+};
+
 // Assumes req.body is a json object similar to how a single pokemon object is stored
 // Will likely change this later to not update at all if a field is left empty
 const editData = (req, res) => {
   let poke;
-  const body = req.body;
+  const { body } = req;
 
-  data.forEach(element => {
+  data.forEach((element) => {
     // console.log(`${element.id}: ${body.id}`)
     if (element.id.toString() === body.id.toString()) {
       poke = element;
@@ -105,12 +105,8 @@ const editData = (req, res) => {
       if (body.name) {
         poke.name = body.name;
       }
-
-      return;
-    }
-    else if (element.name === req.body.name) {
+    } else if (element.name === req.body.name) {
       poke = element;
-      return;
     }
   });
 
@@ -131,7 +127,7 @@ const addData = (req, res) => {
   newPoke.id = data[data.length - 1].id + 1;
   newPoke.num = newPoke.id.toString();
 
-  const body = req.body;
+  const { body } = req;
 
   if (body.name) {
     newPoke.name = body.name;

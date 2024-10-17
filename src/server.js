@@ -17,7 +17,7 @@ const urlStruct = {
   '/getAll': responses.getAll,
   '/addPokemon': responses.addData,
   '/editPokemon': responses.editData,
-  '/documentation.html': responses.getDocumentation
+  '/documentation.html': responses.getDocumentation,
 };
 
 const parseBody = (req, res, handler) => {
@@ -36,7 +36,7 @@ const parseBody = (req, res, handler) => {
   req.on('end', () => {
     const bodyStr = Buffer.concat(body).toString();
     req.body = query.parse(bodyStr);
-    console.log("body");
+    console.log('body');
     handler(req, res);
   });
 };

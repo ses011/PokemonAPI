@@ -11,19 +11,28 @@ const handleResponse = (response) => {
           const parsedRes = JSON.parse(resText);
           content.innerHTML = ''
           for (let poke of parsedRes) {
-            content.innerHTML += `<div class="pokeResponses"><h3>#${poke.id}- ${poke.name}</h3><br><img src="${poke.img}"</img></div>`;
+            if (poke.img) {
+              content.innerHTML += `<div class="pokeResponses"><h3>#${poke.id}- ${poke.name}</h3><br><img src="${poke.img}"</img></div><br>`;
+            }
+            else {
+              content.innerHTML += `<div class="pokeResponses"><h3>#${poke.id}- ${poke.name}</h3></div>`;;
+            }
+            
           }
         }
 
         break;
+      case 201:
+        content.innerHTML = `<p>Pokemon successfully added</p>`
+        break;
       case 204:
-        content.innerHTML = `<b>${resText}<b/>`;
+        content.innerHTML = `<p>${resText}<p/>`;
         break;
       case 400: //Bad Request
-        content.innerHTML = `<b>${resText}</b>`;
+        content.innerHTML = `<p>${resText}</p>`;
         break;
       case 404: //Not Found
-        content.innerHTML = `<b>Not Found</b>`;
+        content.innerHTML = `<p>Not Found</p>`;
         break;
       default: //Anything Else
         content.innerHTML = `<p>Status Code not Implemented By Client</p>`;
@@ -79,7 +88,7 @@ const init = () => {
   }
 
   getAll.onclick = () => {
-    let url = "/getAll";
+    const url = "/getAll";
     let options = {};
     sendFetch(url, options);
   }
