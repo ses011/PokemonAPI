@@ -17,13 +17,12 @@ const sendResponseData = (req, res, code, val, type) => {
     'Content-Type': type,
     'Content-Length': Buffer.byteLength(content, 'utf8'),
   });
-  if (req.method != "HEAD") {
+  if (req.method !== 'HEAD') {
     res.write(content);
   }
-  
+
   res.end();
 };
-
 
 const getData = (selections, res, req) => {
   if (selections.length === 0) {
@@ -31,7 +30,7 @@ const getData = (selections, res, req) => {
     return;
   }
 
-  sendResponseData(req, res, 200, selections,'application/json');
+  sendResponseData(req, res, 200, selections, 'application/json');
 };
 
 const searchName = (req, res) => {
@@ -109,14 +108,14 @@ const editData = (req, res) => {
   });
 
   if (!poke) {
-    sendResponseData(req, res, 400, 'That pokemon is not in the dataset','text/plain');
+    sendResponseData(req, res, 400, 'That pokemon is not in the dataset', 'text/plain');
     return;
   }
 
   poke = postData(poke, body);
 
   data[poke.id - 1] = poke;
-  sendResponseData(req, res, 200, 'Pokemon updated','text/plain');
+  sendResponseData(req, res, 200, 'Pokemon updated', 'text/plain');
 };
 
 // This causes data to be out of order, but should still work the same
@@ -154,7 +153,7 @@ const getCode = (req, res) => {
 };
 
 const notFound = (req, res) => {
-  sendResponseData(req, res, 400, "Endpoint not found", "text/plain");
+  sendResponseData(req, res, 400, 'Endpoint not found', 'text/plain');
 };
 
 module.exports = {
