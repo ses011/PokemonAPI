@@ -1,13 +1,16 @@
 
-const handleResponse = (response) => {
+const handleResponse = (response, options) => {
   const content = document.querySelector("#display");
-  console.log(response);
 
   response.text().then((resText) => {
 
     switch (response.status) {
       case 200: //Success
-        if (response.headers.get('content-type') === "application/json") {
+        if (options.method === "HEAD") {
+          content.innerHTML = `Size: ${response.headers.get("content-length")}`
+        }
+
+        else if (response.headers.get('content-type') === "application/json") {
           const parsedRes = JSON.parse(resText);
           content.innerHTML = ''
           for (let poke of parsedRes) {
@@ -15,21 +18,30 @@ const handleResponse = (response) => {
               content.innerHTML += `<div class="pokeResponses"><h3>#${poke.id}- ${poke.name}</h3><br><img src="${poke.img}"</img></div><br>`;
             }
             else {
-              content.innerHTML += `<div class="pokeResponses"><h3>#${poke.id}- ${poke.name}</h3></div>`;;
+              content.innerHTML += `<div class="pokeResponses"><h3>#${poke.id}- ${poke.name}</h3></div>`;
             }
             
           }
         }
+        else if (response.headers.get('content-type') === "text/plain") {
+          content.innerHTML = `<p>${resText}</p>`
+        }
 
         break;
-      case 201:
-        content.innerHTML = `<p>Pokemon successfully added</p>`
+      case 201: // Pokemon added to data
+        content.innerHTML = `<p>${resText}</p>`
         break;
-      case 204:
+      case 204: 
         content.innerHTML = `<p>${resText}<p/>`;
+        if (!resText) {
+          content.innerHTML = `<p>No results</p>`;
+        }
         break;
       case 400: //Bad Request
         content.innerHTML = `<p>${resText}</p>`;
+        if (!resText) {
+          content.innerHTML = `<p>Bad Request</p>`;
+        }
         break;
       case 404: //Not Found
         content.innerHTML = `<p>Not Found</p>`;
@@ -44,7 +56,7 @@ const handleResponse = (response) => {
 const sendFetch = async (url, options) => {
   console.log(url);
   const fetchPromise = fetch(url, options);
-  fetchPromise.then((response) => handleResponse(response));
+  fetchPromise.then((response) => handleResponse(response, options));
 }
 
 const init = () => {
@@ -62,18 +74,28 @@ const init = () => {
   const getAll = document.querySelector("#searchAll");
   const addBTN = document.querySelector("#addPokemon");
   const editBTN = document.querySelector("#editPokemon");
+  const method = document.querySelector("#method");
 
   searchName.onclick = () => {
     let url = "/searchName?";
     let options = {};
+    
+    if (method.checked) {
+      options.method = "HEAD";
+    }
     const nameField = document.querySelector("#nameField").value.trim();
     url += `name=${nameField}`;
+
     sendFetch(url, options);
   }
 
   searchType.onclick = () => {
     let url = "/searchType?";
     let options = {};
+
+    if (method.checked) {
+      options.method = "HEAD";
+    }
     const type = document.querySelector("#type").value;
     url += `type=${type}`;
     sendFetch(url, options);
@@ -82,6 +104,10 @@ const init = () => {
   searchEffective.onclick = () => {
     let url = "/searchEffective?";
     let options = {};
+
+    if (method.checked) {
+      options.method = "HEAD";
+    }
     const effective = document.querySelector("#effective").value;
     url += `effective=${effective}`;
     sendFetch(url, options);
@@ -90,6 +116,10 @@ const init = () => {
   getAll.onclick = () => {
     const url = "/getAll";
     let options = {};
+
+    if (method.checked) {
+      options.method = "HEAD";
+    }
     sendFetch(url, options);
   }
 
@@ -103,6 +133,7 @@ const init = () => {
     const weightField = document.querySelector("#addWeightField").value;
     const type1 = document.querySelector("#addType1").value;
     const type2 = document.querySelector("#addType2").value;
+    
 
     
     if (nameField != "") {

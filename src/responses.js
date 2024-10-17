@@ -7,7 +7,7 @@ const cCode = fs.readFileSync(`${__dirname}/../client/client.js`);
 const data = JSON.parse(fs.readFileSync(`${__dirname}/../src/pokedex.json`));
 const weakTo = JSON.parse(fs.readFileSync(`${__dirname}/../src/weaknesses.json`));
 
-const sendResponseData = (code, val, res, type) => {
+const sendResponseData = (req, res, code, val, type) => {
   let content = val;
   if (type === 'application/json') {
     content = JSON.stringify(val);
@@ -17,37 +17,35 @@ const sendResponseData = (code, val, res, type) => {
     'Content-Type': type,
     'Content-Length': Buffer.byteLength(content, 'utf8'),
   });
-
-  res.write(content);
+  if (req.method != "HEAD") {
+    res.write(content);
+  }
+  
   res.end();
 };
 
-const sendHead = (code, res) => {
-  res.writeHead(code);
-  res.end();
-};
 
-const getData = (selections, res) => {
+const getData = (selections, res, req) => {
   if (selections.length === 0) {
-    sendResponseData(204, 'No data fits those search parameters- try a less specific search', res, 'text/plain');
+    sendResponseData(req, res, 204, 'No data fits those search parameters- try a less specific search', 'text/plain');
     return;
   }
 
-  sendResponseData(200, selections, res, 'application/json');
+  sendResponseData(req, res, 200, selections,'application/json');
 };
 
 const searchName = (req, res) => {
   const pokeName = req.query.name.toLowerCase();
   const selections = data.filter((pokemon) => pokemon.name.toLowerCase().includes(pokeName));
 
-  getData(selections, res);
+  getData(selections, res, req);
 };
 
 const searchType = (req, res) => {
   const pokeType = req.query.type;
   const selections = data.filter((pokemon) => pokemon.type.includes(pokeType));
 
-  getData(selections, res);
+  getData(selections, res, req);
 };
 
 const searchEffective = (req, res) => {
@@ -64,11 +62,11 @@ const searchEffective = (req, res) => {
     return match;
   });
 
-  getData(selections, res);
+  getData(selections, res, req);
 };
 
 const getAll = (req, res) => {
-  getData(data, res);
+  getData(data, res, req);
 };
 
 const postData = (poke, body) => {
@@ -111,14 +109,14 @@ const editData = (req, res) => {
   });
 
   if (!poke) {
-    sendResponseData(400, 'That pokemon is not in the dataset', res, 'text/plain');
+    sendResponseData(req, res, 400, 'That pokemon is not in the dataset','text/plain');
     return;
   }
 
   poke = postData(poke, body);
 
   data[poke.id - 1] = poke;
-  sendResponseData(204, 'Pokemon updated', res, 'text/plain');
+  sendResponseData(req, res, 200, 'Pokemon updated','text/plain');
 };
 
 // This causes data to be out of order, but should still work the same
@@ -141,22 +139,22 @@ const addData = (req, res) => {
 };
 
 const getIndex = (req, res) => {
-  sendResponseData(200, index, res, 'text/html');
+  sendResponseData(req, res, 200, index, 'text/html');
 };
 
 const getDocumentation = (req, res) => {
-  sendResponseData(200, documentation, res, 'text/html');
+  sendResponseData(req, res, 200, documentation, 'text/html');
 };
 const getStyle = (req, res) => {
-  sendResponseData(200, style, res, 'text/css');
+  sendResponseData(req, res, 200, style, 'text/css');
 };
 
 const getCode = (req, res) => {
-  sendResponseData(200, cCode, res, 'application/javascript');
+  sendResponseData(req, res, 200, cCode, 'application/javascript');
 };
 
 const notFound = (req, res) => {
-  sendHead(400, res);
+  sendResponseData(req, res, 400, "Endpoint not found", "text/plain");
 };
 
 module.exports = {
